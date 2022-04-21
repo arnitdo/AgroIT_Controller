@@ -1,12 +1,11 @@
 import json
 
-from . import sensor_pins
+import sensor_pins
+import mq_135
+import motion_sensor
+import dht_sensor
 
-from . import mq_135
-from . import motion_sensor
-from . import dht_sensor
-
-from . import firebase_connection
+import firebase_connection
 
 DEBUG = True
 def generateJSONData():

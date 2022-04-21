@@ -1,4 +1,4 @@
-from . import sensor_pins
+import sensor_pins
 import gpiozero
 import adafruit_dht
 
