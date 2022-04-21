@@ -47,17 +47,17 @@ def getMoistureValue():
 
 def getHumidityValue():
 	humidity, _ = Adafruit_DHT.read(dht_sensor, DHT_SENSOR_PIN)
+	global last_humidity
 	if humidity == None:
 		humidity = last_humidity
-	global last_humidity
 	last_humidity = humidity
 	return humidity
 
 def getTemperatureValue():
 	_, temperature = Adafruit_DHT.read(dht_sensor, DHT_SENSOR_PIN)
+	global last_temperature
 	if temperature == None:
 		temperature = last_temperature
-	global last_temperature
 	last_temperature = temperature
 	return temperature
 
