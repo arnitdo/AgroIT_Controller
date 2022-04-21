@@ -1,3 +1,6 @@
+
+DEBUG = True
+
 import json
 import time
 
@@ -9,7 +12,6 @@ import moisture_sensor
 
 import firebase_connection
 
-DEBUG = True
 def generateJSONData():
 	return {
 		"sensorData" : {
