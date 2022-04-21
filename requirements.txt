@@ -1,2 +1,3 @@
 firebase_admin
 gpiozero
+adafruit_dht
