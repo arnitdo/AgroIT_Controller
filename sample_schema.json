@@ -6,10 +6,10 @@
 			"smokeValue" : "int 0/1"
 		},
 		"motionSensor" : {	
-			"motionValue" : "float 0-1"
+			"motionValue" : "int 0/1"
 		},	
 		"moistureSensor" : {
-			"moistureValue" : "float 0-1"
+			"moistureValue" : "int 0/1"
 		},	
 		"dhtSensor" : {
 			"temperatureValue" : "int 0-100",

@@ -12,4 +12,6 @@ moisture_sensor = MoistureSensor(sensor_pins.MOISTURE_SENSOR_PIN)
 def getMoistureValue(debug = False):
 	if debug:
 		return random.random()
+	moisture_value = moisture_sensor.value
+	moisture_value = [1, 0][moisture_value]
 	return moisture_sensor.value

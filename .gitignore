@@ -1,3 +1,4 @@
 *.json
 !sample_schema.json
 !credentials.json
+__pycache__/
