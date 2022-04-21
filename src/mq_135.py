@@ -9,7 +9,7 @@ class MQ135(gpiozero.GPIODevice):
 
 mq_135 = MQ135(sensor_pins.SMOKE_SENSOR_PIN)
 
-def getSmokeValue():
-	if DEBUG:
+def getSmokeValue(debug = False):
+	if debug:
 		return random.random()
 	return mq_135.value

@@ -9,7 +9,7 @@ class MoistureSensor(gpiozero.GPIODevice):
 	
 moisture_sensor = MoistureSensor(sensor_pins.MOISTURE_SENSOR_PIN)
 
-def getMoistureValue():
-	if DEBUG:
+def getMoistureValue(debug = False):
+	if debug:
 		return random.random()
 	return moisture_sensor.value

@@ -12,29 +12,29 @@ import moisture_sensor
 
 import firebase_connection
 
-def generateJSONData():
+def generateJSONData(debug = False):
 	return {
 		"sensorData" : {
 			"smokeSensor" : {
-				"smokeValue" : mq_135.getSmokeValue()
+				"smokeValue" : mq_135.getSmokeValue(debug)
 			},
 			"motionSensor" : {
 
-				"motionValue" : motion_sensor.getMotionValue()
+				"motionValue" : motion_sensor.getMotionValue(debug)
 			},
 			"moistureSensor" : {
-				"moistureValue" : moisture_sensor.getMoistureValue()
+				"moistureValue" : moisture_sensor.getMoistureValue(debug)
 			},
 			"dhtSensor" : {
-				"humidityValue" : dht_sensor.getHumidityValue(),
-				"temperatureValue" : dht_sensor.getTemperatureValue()
+				"humidityValue" : dht_sensor.getHumidityValue(debug),
+				"temperatureValue" : dht_sensor.getTemperatureValue(debug)
 			}
 		}
 	}
 
 while True:
-	sensorData = generateJSONData()
-	if DEBUG:
+	sensorData = generateJSONData(DEBUG)
+	if debug:
 		prettySensorData = json.dumps(sensorData, indent = 4)
 		print(f"Sensor data is : {prettySensorData}")
 
