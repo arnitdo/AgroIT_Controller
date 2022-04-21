@@ -8,4 +8,4 @@ class MoistureSensor(gpiozero.GPIODevice):
 moisture_sensor = MoistureSensor(sensor_pins.MOISTURE_SENSOR_PIN)
 
 def getMoistureValue():
-	return moisture_sensor
+	return moisture_sensor.value

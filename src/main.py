@@ -1,4 +1,5 @@
 import json
+import time
 
 import sensor_pins
 import mq_135
@@ -34,3 +35,5 @@ while True:
 	if DEBUG:
 		prettySensorData = json.dumps(sensorData, indent = 4)
 		print(f"Sensor data is : {prettySensorData}")
+
+	time.sleep(5)
