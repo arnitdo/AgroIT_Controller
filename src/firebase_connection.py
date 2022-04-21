@@ -17,5 +17,7 @@ def insertData(sensorValues):
 	moistureSensor = sensorValues["moistureSensor"]
 	dhtSensor = sensorValues["dhtSensor"]
 	collection = database.collection("sensorData")
-	collection.document("smokeSensor").set(smokeSensor)
-	collection.document("motionSensor").set(motionSensor)
+	collection.document("smokeSensor").update(smokeSensor)
+	collection.document("motionSensor").update(motionSensor)
+	collection.document("moistureSensor").update(moistureSensor)
+	collection.document("dhtSensor").update(dhtSensor)
