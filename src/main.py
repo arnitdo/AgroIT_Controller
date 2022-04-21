@@ -4,6 +4,7 @@ import sensor_pins
 import mq_135
 import motion_sensor
 import dht_sensor
+import moisture_sensor
 
 import firebase_connection
 
