@@ -2,7 +2,7 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
 
-CREDENTIAL_PATH = "../credentials.json"
+CREDENTIAL_PATH = "credentials.json"
 
 credentialsCertificate = credentials.Certificate(CREDENTIAL_PATH)
 firebase_admin.initialize_app(credentialsCertificate)
