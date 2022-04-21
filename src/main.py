@@ -11,6 +11,7 @@ import dht_sensor
 import moisture_sensor
 
 import firebase_connection
+from src.firebase_connection import insertData
 
 def generateJSONData(debug = False):
 	return {
@@ -37,5 +38,6 @@ while True:
 	if DEBUG:
 		prettySensorData = json.dumps(sensorData, indent = 4)
 		print(f"Sensor data is : {prettySensorData}")
-
+	
+	insertData(sensorData)
 	time.sleep(15)
