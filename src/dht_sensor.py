@@ -1,14 +1,14 @@
 import sensor_pins
 import gpiozero
-import adafruit_dht
+import Adafruit_DHT
 
-dht_sensor = adafruit_dht.DHT11
-humidity, temperature = adafruit_dht.read_retry(dht_sensor, sensor_pins.DHT_SENSOR_PIN)
+dht_sensor = Adafruit_DHT.DHT11
+humidity, temperature = Adafruit_DHT.read_retry(dht_sensor, sensor_pins.DHT_SENSOR_PIN)
 
 def getHumidityValue():
-	humidity, _ = adafruit_dht.read_retry(dht_sensor, sensor_pins.DHT_SENSOR_PIN)
+	humidity, _ = Adafruit_DHT.read_retry(dht_sensor, sensor_pins.DHT_SENSOR_PIN)
 	return humidity
 
 def getTemperatureValue():
-	_, temperature = adafruit_dht.read_retry(dht_sensor, sensor_pins.MOISTURE_SENSOR_PIN)
+	_, temperature = Adafruit_DHT.read_retry(dht_sensor, sensor_pins.MOISTURE_SENSOR_PIN)
 	return temperature
