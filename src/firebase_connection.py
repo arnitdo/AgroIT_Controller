@@ -6,8 +6,10 @@ CREDENTIAL_PATH = "../credentials.json"
 
 credentialsCertificate = credentials.Certificate(CREDENTIAL_PATH)
 firebase_admin.initialize_app(credentialsCertificate)
-
 database = firestore.client()
+
+if database:
+	print("DEBUG : Connected to database successfully!")
 
 def insertData(sensorValues):
 	smokeSensor = sensorValues["smokeSensor"]
@@ -17,4 +19,3 @@ def insertData(sensorValues):
 	collection = database.collection("sensorData")
 	collection.document("smokeSensor").set(smokeSensor)
 	collection.document("motionSensor").set(motionSensor)
-	
