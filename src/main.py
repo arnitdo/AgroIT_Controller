@@ -30,6 +30,6 @@ def generateJSONData():
 
 while True:
 	sensorData = generateJSONData()
-	if debug:
+	if DEBUG:
 		prettySensorData = json.dumps(sensorData, indent = 4)
 		print(f"Sensor data is : {prettySensorData}")
