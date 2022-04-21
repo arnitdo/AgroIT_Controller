@@ -78,17 +78,17 @@ def insertData(sensorValues):
 def generateJSONData():
 	return {
 		"smokeSensor" : {
-			"smokeValue" : getSmokeValue(debug)
+			"smokeValue" : getSmokeValue()
 		},
 		"motionSensor" : {
-			"motionValue" : getMotionValue(debug)
+			"motionValue" : getMotionValue()
 		},
 			"moistureSensor" : {
-			"moistureValue" : getMoistureValue(debug)
+			"moistureValue" : getMoistureValue()
 		},
 		"dhtSensor" : {
-			"humidityValue" : getHumidityValue(debug),
-			"temperatureValue" : getTemperatureValue(debug)
+			"humidityValue" : getHumidityValue(),
+			"temperatureValue" : getTemperatureValue()
 		}
 	}
 
@@ -103,5 +103,5 @@ def main():
 		insertData(sensorData)
 		time.sleep(5)
 
-if __name___ == "__main__":
+if __name__ == "__main__":
 	main()
