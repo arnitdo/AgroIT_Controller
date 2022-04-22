@@ -16,6 +16,7 @@ DHT_SENSOR_PIN = 10
 SPRINKLER_PIN = 15
 PESTICIDE_PIN = 20
 FERTILIZER_PIN = 18
+BUZZER_PIN = 12
 
 # Firebase credentials
 credentialsCertificate = credentials.Certificate(CREDENTIAL_PATH)
@@ -47,6 +48,7 @@ motion_sensor = gpiozero.MotionSensor(MOTION_SENSOR_PIN)
 sprinkler_led = gpiozero.LED(SPRINKLER_PIN)
 pesticide_led = gpiozero.LED(PESTICIDE_PIN)
 fertilizer_led = gpiozero.LED(FERTILIZER_PIN)
+buzzer = gpiozero.Buzzer(BUZZER_PIN)
 last_humidity = 0
 last_temperature = 0
 
@@ -125,6 +127,11 @@ def getSprinklerData():
 			"nextSprinklerDue" : sprinklerDue,
 			"acknowledged" : True
 		})
+
+def activateBuzzer():
+	buzzer.value = 1
+	time.sleep(5)
+	buzzer.value = 0
 
 def activateSprinklers():
 	sprinkler_led.value = 1
