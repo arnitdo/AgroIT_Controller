@@ -12,6 +12,9 @@ SMOKE_SENSOR_PIN = 14
 MOTION_SENSOR_PIN = 17
 MOISTURE_SENSOR_PIN = 23
 DHT_SENSOR_PIN = 10
+SPRINKLER_PIN = 15
+PESTICIDE_PIN = 20
+FERTILIZER_PIN = 18
 
 # Firebase credentials
 credentialsCertificate = credentials.Certificate(CREDENTIAL_PATH)
@@ -21,10 +24,16 @@ database = firestore.client()
 # Sensor wrapper classes
 
 class MQ135(gpiozero.GPIODevice):
+	"""
+	MQ-135 Smoke detector
+	"""
 	def __init__(self, pin_no):
 		super().__init__(pin_no)
 
 class MoistureSensor(gpiozero.GPIODevice):
+	"""
+	FC-28 Soil / Water Moisture detector
+	"""
 	def __init__(self, pin_no):
 		super().__init__(pin_no)
 
@@ -34,6 +43,9 @@ mq_135 = MQ135(SMOKE_SENSOR_PIN)
 dht_sensor = Adafruit_DHT.DHT11
 moisture_sensor = MoistureSensor(MOISTURE_SENSOR_PIN)
 motion_sensor = gpiozero.MotionSensor(MOTION_SENSOR_PIN)
+sprinkler_led = gpiozero.LED(SPRINKLER_PIN)
+pesticide_led = gpiozero.LED(PESTICIDE_PIN)
+fertilizer_led = gpiozero.LED(FERTILIZER_PIN)
 last_humidity = 0
 last_temperature = 0
 
@@ -63,6 +75,46 @@ def getTemperatureValue():
 
 def getMotionValue():
 	return motion_sensor.value
+
+def getPesticideData():
+	collection = database.collection("sensorData")
+	pesticideDocRef = collection.document("pesticideCycle")
+	pesticideDoc = pesticideDocRef.get()
+	pesticideDue = pesticideDoc["nextPesticideDue"]
+	pesticideStatus = pesticideDoc["acknowledged"]
+	currentTimeStamp = time.time() * 1000
+	if currentTimeStamp >= pesticideDue and pesticideStatus == False:
+		# Spray pesticides
+		pesticide_led.value = 1
+		time.sleep(5)
+		pesticide_led.value = 0
+		pesticideDocRef.update({
+			"nextPesticideDue" : pesticideDue,
+			"acknowledged" : True
+		})
+
+def getFertilizerData():
+	collection = database.collection("sensorData")
+	fertilizerDocRef = collection.document("fertilizerCycle")
+	fertilizerDoc = fertilizerDocRef.get()
+	fertilizerDue = fertilizerDoc["nextFertilizerDue"]
+	fertilizerStatus = fertilizerDoc["acknowledged"]
+	currentTimeStamp = time.time() * 1000
+	if currentTimeStamp >= fertilizerDue and fertilizerStatus == False:
+		# Spray pesticides
+		fertilizer_led.value = 1
+		time.sleep(5)
+		fertilizer_led.value = 0
+		fertilizerDocRef.update({
+			"nextFertilizerDue" : fertilizerDue,
+			"acknowledged" : True
+		})
+
+
+def activateSprinklers():
+	sprinkler_led.value = 1
+	time.sleep(5)
+	sprinkler_led.value = 0
 
 def insertData(sensorValues):
 	smokeSensor = sensorValues["smokeSensor"]
@@ -95,6 +147,10 @@ def generateJSONData():
 def main():
 	while True:
 		sensorData = generateJSONData()
+		smokeStatus = sensorData["smokeSensor"]["smokeValue"]
+		if smokeStatus == 1:
+			# In case of fire
+			activateSprinklers()
 		print(
 			json.dumps(
 				sensorData, indent = 4
