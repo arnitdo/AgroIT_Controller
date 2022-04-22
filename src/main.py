@@ -102,7 +102,7 @@ def getFertilizerData():
 	fertilizerStatus = fertilizerDoc["acknowledged"]
 	currentTimeStamp = time.time()
 	if currentTimeStamp >= fertilizerDue and fertilizerStatus == False:
-		# Spray pesticides
+		# Spray fertilizer
 		fertilizer_led.value = 1
 		time.sleep(5)
 		fertilizer_led.value = 0
@@ -111,6 +111,20 @@ def getFertilizerData():
 			"acknowledged" : True
 		})
 
+def getSprinklerData():
+	collection = database.collection("sensorData")
+	sprinklerDocRef = collection.document("sprinklerCycle")
+	sprinklerDoc = sprinklerDocRef.get().to_dict()
+	sprinklerDue = sprinklerDoc["nextSprinklerDue"]
+	sprinklerStatus = sprinklerDoc["acknowledged"]
+	currentTimeStamp = time.time()
+	if currentTimeStamp >= sprinklerDue and sprinklerStatus == False:
+		# Activate sprinklers
+		activateSprinklers()
+		sprinklerDocRef.update({
+			"nextSprinklerDue" : sprinklerDue,
+			"acknowledged" : True
+		})
 
 def activateSprinklers():
 	sprinkler_led.value = 1
