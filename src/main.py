@@ -89,8 +89,10 @@ def getPesticideData():
 	if currentTimeStamp >= pesticideDue and pesticideStatus == False:
 		# Spray pesticides
 		pesticide_led.value = 1
+		buzzer.value = 1
 		time.sleep(5)
 		pesticide_led.value = 0
+		buzzer.value = 0
 		pesticideDocRef.update({
 			"nextPesticideDue" : pesticideDue,
 			"acknowledged" : True
@@ -106,8 +108,10 @@ def getFertilizerData():
 	if currentTimeStamp >= fertilizerDue and fertilizerStatus == False:
 		# Spray fertilizer
 		fertilizer_led.value = 1
+		buzzer.value = 1
 		time.sleep(5)
 		fertilizer_led.value = 0
+		buzzer.value = 0
 		fertilizerDocRef.update({
 			"nextFertilizerDue" : fertilizerDue,
 			"acknowledged" : True
@@ -128,15 +132,12 @@ def getSprinklerData():
 			"acknowledged" : True
 		})
 
-def activateBuzzer():
-	buzzer.value = 1
-	time.sleep(5)
-	buzzer.value = 0
-
 def activateSprinklers():
 	sprinkler_led.value = 1
+	buzzer.value = 1
 	time.sleep(5)
 	sprinkler_led.value = 0
+	buzzer.value = 0
 
 def insertData(sensorValues):
 	smokeSensor = sensorValues["smokeSensor"]
