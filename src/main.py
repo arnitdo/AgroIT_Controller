@@ -101,10 +101,10 @@ def getPesticideData():
 def getFertilizerData():
 	collection = database.collection("sensorData")
 	fertilizerDocRef = collection.document("fertilizerCycle")
-	fertilizerDoc = fertilizerDocRef.get()
+	fertilizerDoc = fertilizerDocRef.get().to_dict()
 	fertilizerDue = fertilizerDoc["nextFertilizerDue"]
 	fertilizerStatus = fertilizerDoc["acknowledged"]
-	currentTimeStamp = time.time() * 1000
+	currentTimeStamp = datetime.datetime.now()
 	if currentTimeStamp >= fertilizerDue and fertilizerStatus == False:
 		# Spray pesticides
 		fertilizer_led.value = 1
@@ -156,6 +156,8 @@ def main():
 		if smokeStatus == 1:
 			# In case of fire
 			activateSprinklers()
+
+		getPesticideData()
 		print(
 			json.dumps(
 				sensorData, indent = 4
