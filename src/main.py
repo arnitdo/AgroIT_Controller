@@ -1,5 +1,6 @@
 import json
 import time
+import datetime
 import gpiozero
 import firebase_admin
 from firebase_admin import credentials
@@ -80,9 +81,13 @@ def getPesticideData():
 	collection = database.collection("sensorData")
 	pesticideDocRef = collection.document("pesticideCycle")
 	pesticideDoc = pesticideDocRef.get()
-	pesticideDue = pesticideDoc["nextPesticideDue"]
+	pesticideDueFormat = pesticideDoc["nextPesticideDue"]
+	pesticideDue = datetime.datetime.strptime(
+		str(pesticideDueFormat), 
+		"%Y-%m-%dT%H:%M:%S.%fZ"
+	)
 	pesticideStatus = pesticideDoc["acknowledged"]
-	currentTimeStamp = time.time() * 1000
+	currentTimeStamp = datetime.datetime.now()
 	if currentTimeStamp >= pesticideDue and pesticideStatus == False:
 		# Spray pesticides
 		pesticide_led.value = 1
