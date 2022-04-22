@@ -81,7 +81,7 @@ def getPesticideData():
 	collection = database.collection("sensorData")
 	pesticideDocRef = collection.document("pesticideCycle")
 	pesticideDoc = pesticideDocRef.get().to_dict()
-	pesticideDue = pesticideDoc["nextPesticideDue"].timestamp()
+	pesticideDue = pesticideDoc["nextPesticideDue"]
 	pesticideStatus = pesticideDoc["acknowledged"]
 	currentTimeStamp = time.time()
 	if currentTimeStamp >= pesticideDue and pesticideStatus == False:
@@ -98,7 +98,7 @@ def getFertilizerData():
 	collection = database.collection("sensorData")
 	fertilizerDocRef = collection.document("fertilizerCycle")
 	fertilizerDoc = fertilizerDocRef.get().to_dict()
-	fertilizerDue = fertilizerDoc["nextFertilizerDue"].timestamp()
+	fertilizerDue = fertilizerDoc["nextFertilizerDue"]
 	fertilizerStatus = fertilizerDoc["acknowledged"]
 	currentTimeStamp = time.time()
 	if currentTimeStamp >= fertilizerDue and fertilizerStatus == False:
