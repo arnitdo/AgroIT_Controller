@@ -154,6 +154,7 @@ def main():
 			activateSprinklers()
 
 		getPesticideData()
+		getFertilizerData()
 		print(
 			json.dumps(
 				sensorData, indent = 4
