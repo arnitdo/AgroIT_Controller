@@ -80,14 +80,10 @@ def getMotionValue():
 def getPesticideData():
 	collection = database.collection("sensorData")
 	pesticideDocRef = collection.document("pesticideCycle")
-	pesticideDoc = pesticideDocRef.get()
-	pesticideDueFormat = pesticideDoc["nextPesticideDue"]
-	pesticideDue = datetime.datetime.strptime(
-		str(pesticideDueFormat), 
-		"%Y-%m-%dT%H:%M:%S.%fZ"
-	)
+	pesticideDoc = pesticideDocRef.get().to_dict()
+	pesticideDue = pesticideDoc["nextPesticideDue"].timestamp()
 	pesticideStatus = pesticideDoc["acknowledged"]
-	currentTimeStamp = datetime.datetime.now()
+	currentTimeStamp = time.time()
 	if currentTimeStamp >= pesticideDue and pesticideStatus == False:
 		# Spray pesticides
 		pesticide_led.value = 1
@@ -102,9 +98,9 @@ def getFertilizerData():
 	collection = database.collection("sensorData")
 	fertilizerDocRef = collection.document("fertilizerCycle")
 	fertilizerDoc = fertilizerDocRef.get().to_dict()
-	fertilizerDue = fertilizerDoc["nextFertilizerDue"]
+	fertilizerDue = fertilizerDoc["nextFertilizerDue"].timestamp()
 	fertilizerStatus = fertilizerDoc["acknowledged"]
-	currentTimeStamp = datetime.datetime.now()
+	currentTimeStamp = time.time()
 	if currentTimeStamp >= fertilizerDue and fertilizerStatus == False:
 		# Spray pesticides
 		fertilizer_led.value = 1
