@@ -55,26 +55,29 @@ last_temperature = 0
 # Data functions
 
 def getSmokeValue():
-	return mq_135.value
+	# return mq_135.value
+	return 0
 
 def getMoistureValue():
-	return moisture_sensor.value
+	# return moisture_sensor.value
+	return 0
 
 def getHumidityValue():
-	humidity, _ = Adafruit_DHT.read(dht_sensor, DHT_SENSOR_PIN)
-	global last_humidity
-	if humidity == None:
-		humidity = last_humidity
-	last_humidity = humidity
-	return humidity
+	# humidity, _ = Adafruit_DHT.read(dht_sensor, DHT_SENSOR_PIN)
+	# global last_humidity
+	# if humidity == None:
+	# 	humidity = last_humidity
+	# last_humidity = humidity
+	return 0
 
 def getTemperatureValue():
-	_, temperature = Adafruit_DHT.read(dht_sensor, DHT_SENSOR_PIN)
-	global last_temperature
-	if temperature == None:
-		temperature = last_temperature
-	last_temperature = temperature
-	return temperature
+	# _, temperature = Adafruit_DHT.read(dht_sensor, DHT_SENSOR_PIN)
+	# global last_temperature
+	# if temperature == None:
+	# 	temperature = last_temperature
+	# last_temperature = temperature
+	# return temperature
+	return 0
 
 def getMotionValue():
 	return motion_sensor.value
